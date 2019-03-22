@@ -4,14 +4,15 @@
   <img src="assets/imgs/tela-inicial.png" alt="logo">
 
   <form action="">
+
     <ion-item>
       <ion-label stacked>Email</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input [(ngModel)]="credentials.email" name="email" type="text"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input [(ngModel)]="credentials.senha" name="password" type="password"></ion-input>
     </ion-item>
 
     <button ion-button block (click)="login()">Log In</button>
