@@ -13,4 +13,10 @@ export class HomePage {
 
   }
 
+  login() {
+    //O método 'push' serve para empilha uma página sobre a outra
+    //this.navCtrl.push('CategoriasPage');
+    this.navCtrl.setRoot('CategoriasPage');
+  }
+
 }

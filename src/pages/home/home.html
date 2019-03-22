@@ -14,7 +14,8 @@
       <ion-input type="password"></ion-input>
     </ion-item>
 
-    <button ion-button block>Log In</button>
+    <button ion-button block (click)="login()">Log In</button>
+    <!-- No angular o '()' serve para fazer o binding de eventos -->
   </form>
 
   <button ion-button color="secondary" outline block>Sign Up</button>
