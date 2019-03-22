@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage} from 'ionic-angular';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 
 //Esta classe e o controlador da View 'home.html' | O decorator '@Component' e o que torna essa classe um controller
 @IonicPage()
@@ -9,7 +10,7 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public menu: MenuController) {
 
   }
 
@@ -17,6 +18,14 @@ export class HomePage {
     //O método 'push' serve para empilha uma página sobre a outra
     //this.navCtrl.push('CategoriasPage');
     this.navCtrl.setRoot('CategoriasPage');
+  }
+
+  ionViewWillEnter() {
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menu.swipeEnable(true);
   }
 
 }
