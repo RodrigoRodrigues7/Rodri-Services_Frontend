@@ -13,6 +13,9 @@ export class CategoriaService {
     findAll() : Observable<CategoriaDTO[]> {
         //A crase serve para inserir uma variavel sem precisar concatenando com o '+'
         return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias`);
+
+        //É possivel tambem utilizar da maneira abaixo
+        //return this.http.get<CategoriaDTO[]>(API_CONFIG.baseUrl + "/categorias");
     }
 
 }
