@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage} from 'ionic-angular';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { CredenciaisDTO } from '../../models/crecenciais.dto';
+import { AuthService } from '../../services/auth.service';
 
 //Esta classe e o controlador da View 'home.html' | O decorator '@Component' e o que torna essa classe um controller
 @IonicPage()
@@ -16,14 +17,22 @@ export class HomePage {
     senha: ""
   };
 
-  constructor(public navCtrl: NavController, public menu: MenuController) {}
+  constructor(
+    public navCtrl: NavController, 
+    public menu: MenuController,
+    public auth: AuthService) {}
 
   login() {
     //O método 'push' serve para empilha uma página sobre a outra
     //this.navCtrl.push('CategoriasPage');
     
-    console.log(this.credentials);
-    this.navCtrl.setRoot('CategoriasPage');
+    //Fazendo a autenticação
+    this.auth.authenticate(this.credentials)
+    .subscribe(response => {
+      console.log(response.headers.get('Authorization'));
+      this.navCtrl.setRoot('CategoriasPage');
+    },
+    error => {});
   }
 
   ionViewWillEnter() {
