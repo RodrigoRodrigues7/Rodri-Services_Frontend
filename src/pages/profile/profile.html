@@ -10,5 +10,11 @@
 </ion-header>
 
 <ion-content padding>
-  <p> Email: {{ email }} </p>
+  
+  <ion-avatar> <!-- Os '[]' servem para fazer um 'Binding' de dados -->
+    <img class="circle" [src]="cliente?.imgUrl || 'assets/imgs/avatar-blank.png'">
+  </ion-avatar>
+  <h2 text-center> {{ cliente?.nome }} </h2>
+  <p  text-center> {{ cliente?.email }} </p>
+
 </ion-content>
