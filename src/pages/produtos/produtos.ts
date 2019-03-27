@@ -41,8 +41,9 @@ export class ProdutosPage {
     }
   }
 
-  showDetails() {
-    this.navCtrl.push('ProdutoDetailPage');
+  showDetails(produto_id: string) {
+    //Esse objeto no final do método, significa que eu estou passando um parâmetro para a próxima página
+    this.navCtrl.push('ProdutoDetailPage', {produto_id: produto_id});
   }
 
 }
