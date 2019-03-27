@@ -1,20 +1,21 @@
 <ion-header>
-  
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-    <ion-title>Profile</ion-title>
-  </ion-navbar>
 
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>
+
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  
-  <ion-avatar> <!-- Os '[]' servem para fazer um 'Binding' de dados -->
+
+  <ion-avatar>
+    <!-- Os '[]' servem para fazer um 'Binding' de dados -->
     <img class="circle" [src]="cliente?.imgUrl || 'assets/imgs/avatar-blank.png'">
   </ion-avatar>
   <h2 text-center> {{ cliente?.nome }} </h2>
-  <p  text-center> {{ cliente?.email }} </p>
+  <p text-center> {{ cliente?.email }} </p>
 
 </ion-content>
