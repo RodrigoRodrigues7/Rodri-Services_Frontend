@@ -4,6 +4,7 @@ import { AlertController } from "ionic-angular";
 import { Observable } from "rxjs/Rx";
 
 import { StorageService } from "../services/storage.service";
+import { FieldMessage } from "../models/field_message";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -39,6 +40,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.handle_403();
                         break;
 
+                    case 422:
+                        this.handle_422(errorObj);
+                        break;
+
                     default:
                         this.handleDefaultError(errorObj);
                         break;
@@ -49,14 +54,24 @@ export class ErrorInterceptor implements HttpInterceptor {
             }) as any;
     }
 
-    handle_403() {
-        this.storage.setLocalUser(null);
-    }
-
     handle_401() {
         let alert = this.alertCtrl.create({
             title: 'Erro 401: Falha de Autenticação',
             message: 'Email ou Senha Incorretos',
+            enableBackdropDismiss: false,
+            buttons: [{ text: 'OK' }]
+        });
+        alert.present();
+    }
+
+    handle_403() {
+        this.storage.setLocalUser(null);
+    }
+
+    handle_422(errorObj) {
+        let alert = this.alertCtrl.create({
+            title: "Erro de Validação",
+            message: this.listErrors(errorObj.errors),
             enableBackdropDismiss: false,
             buttons: [{ text: 'OK' }]
         });
@@ -71,6 +86,15 @@ export class ErrorInterceptor implements HttpInterceptor {
             buttons: [{ text: 'OK' }]
         });
         alert.present();
+    }
+
+    listErrors(messages: FieldMessage[]): string {
+        let s : string = '';
+        for (var i=0; i < messages.length; i++) {
+            s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>' ;
+            
+        }
+        return s;
     }
 
 }
