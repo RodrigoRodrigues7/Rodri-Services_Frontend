@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { EnderecoDTO } from '../../models/endereco.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { StorageService } from '../../services/storage.service';
 
 @IonicPage()
 @Component({
@@ -11,44 +14,24 @@ export class PickAddressPage {
 
 	items: EnderecoDTO[];
 
-	constructor(public navCtrl: NavController, public navParams: NavParams) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public cliService: ClienteService, public storage: StorageService) {
 	}
 
 	ionViewDidLoad() {
-		this.items = [
-			{
-				id: "1",
-				logradouro: "Rua Quinze de Novembro",
-				numero: "300",
-				complemento: "APTO 2020",
-				bairro: "Santa Mônica",
-				cep: "50640220",
-				cidade: {
-					id: "1",
-					nome: "Uberlândia",
-					estado: {
-						id: "1",
-						nome: "Minas Gerais"
+		let localUser = this.storage.getLocalUser();
+		if (localUser && localUser.email) {
+			this.cliService.findByEmail(localUser.email)
+				.subscribe(response => {
+					this.items = response['enderecos'];
+				},
+				error => {
+					if (error.status == 403) {
+						this.navCtrl.setRoot('HomePage');
 					}
-				}
-			},
-			{
-				id: "2",
-				logradouro: "Rua Tijucas",
-				numero: "234",
-				complemento: "Casa",
-				bairro: "Cordeiro",
-				cep: "50640444",
-				cidade: {
-					id: "2",
-					nome: "Recife",
-					estado: {
-						id: "2",
-						nome: "Pernambuco"
-					}
-				}
-			}
-		]
+				});
+		} else {
+			this.navCtrl.setRoot('HomePage');
+		}
 	}
 
 }
