@@ -22,6 +22,10 @@ export class ProdutosPage {
 	}
 
 	ionViewDidLoad() {
+		this.loadData();
+	}
+
+	loadData() {
 		let categoriaId = this.navParams.get('categoria_id');
 		let loader = this.presentLoading();
 
@@ -31,9 +35,9 @@ export class ProdutosPage {
 				loader.dismiss();
 				this.loadImageUrl();
 			},
-				error => {
+			error => {
 					loader.dismiss();
-				});
+			});
 	}
 
 	loadImageUrl() {
@@ -58,6 +62,13 @@ export class ProdutosPage {
 		});
 		loader.present();
 		return loader;
+	}
+
+	doRefresh(refresher) {
+		this.loadData();
+		setTimeout(() => {
+			refresher.complete();
+		}, 800);
 	}
 
 }
