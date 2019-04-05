@@ -1,21 +1,33 @@
 <ion-header>
-  <ion-navbar>
+	<ion-navbar>
 
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Profile</ion-title>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Profile</ion-title>
 
-  </ion-navbar>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-avatar>
-    <!-- Os '[]' servem para fazer um 'Binding' de dados -->
-    <img class="circle" [src]="cliente?.imgUrl || 'assets/imgs/avatar-blank.png'">
-  </ion-avatar>
-  <h2 text-center> {{ cliente?.nome }} </h2>
-  <p text-center> {{ cliente?.email }} </p>
+	<ion-avatar>
+		<!-- Os '[]' servem para fazer um 'Binding' de dados -->
+		<img class="circle" [src]="cliente?.imgUrl || 'assets/imgs/avatar-blank.png'">
+	</ion-avatar>
+	<h2 text-center> {{ cliente?.nome }} </h2>
+	<p text-center> {{ cliente?.email }} </p>
+
+	<ion-card>
+		<ion-card-header>
+			Enviar Foto de Perfil
+		</ion-card-header>
+		<ion-item *ngIf="picture">
+			<img [src]="picture">
+		</ion-item>
+		<ion-item>
+			<button ion-button block (click)="getCameraPicture()" [disabled]="cameraOn">Camera</button>
+		</ion-item>
+	</ion-card>
 
 </ion-content>
